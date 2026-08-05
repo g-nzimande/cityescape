@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>An Escape...</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&display=swap');
+        /* Imported both Bitcount Prop Single and Poppins */
+        @import url('https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Poppins:wght@300;400;600&display=swap');
 
         body, html {
             margin: 0;
@@ -15,7 +16,7 @@
             background-color: #fdf6e3;
             font-family: 'Poppins', sans-serif;
             color: #333;
-            overflow: hidden; /* Prevents scrolling when the button runs away */
+            overflow: hidden; /* Prevents whole-page scrolling when the runaway button moves */
         }
 
         .screen {
@@ -23,30 +24,41 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
-            padding: 20px;
+            padding: 24px;
             box-sizing: border-box;
             text-align: center;
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
+            overflow-y: auto; /* Ensures long text remains fully viewable on small screens */
         }
 
         .screen.active {
             display: flex;
             opacity: 1;
         }
-            
-.bitcount-prop-single-headings {
-  font-family: "Bitcount Prop Single", system-ui;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
-  font-variation-settings:
-    "slnt" 0,
-    "CRSV" 0.5,
-    "ELSH" 0,
-    "ELXP" 0;
+
+        /* Direct styling for headings using Bitcount Prop Single */
+        h1 {
+            font-family: "Bitcount Prop Single", system-ui, sans-serif;
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 400;
+            font-variation-settings:
+                "slnt" 0,
+                "CRSV" 0.5,
+                "ELSH" 0,
+                "ELXP" 0;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            max-width: 420px;
         }
 
         .btn {
@@ -54,13 +66,14 @@
             color: white;
             border: none;
             padding: 15px 30px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-family: 'Poppins', sans-serif;
+            font-weight: 600;
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.2s, background-color 0.2s;
-            margin: 10px;
+            margin: 8px;
         }
 
         .btn:hover {
@@ -83,19 +96,19 @@
             display: flex;
             gap: 15px;
             position: relative;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        /* Options for the final screen */
         .vibe-option {
             width: 100%;
-            max-width: 300px;
-            margin: 10px 0;
+            max-width: 320px;
+            margin: 8px 0;
             background-color: #fff;
             color: #d35400;
             border: 2px solid #d35400;
         }
 
-        /* Warm gradient background for the final screen */
         #screen3 {
             background: linear-gradient(135deg, #fdf6e3 0%, #fae5d3 100%);
         }
@@ -143,17 +156,15 @@
             setTimeout(() => {
                 currentScreen.classList.remove('active');
                 nextScreen.classList.add('active');
-                // Trigger reflow for transition
                 void nextScreen.offsetWidth;
                 nextScreen.style.opacity = '1';
-            }, 800); // Matches the CSS transition time
+            }, 800);
         }
 
         // Runaway "No" Button Logic
         const noBtn = document.getElementById('noBtn');
         
         function moveButton() {
-            // Calculate safe bounds so the button doesn't go off-screen
             const maxX = window.innerWidth - noBtn.offsetWidth - 20;
             const maxY = window.innerHeight - noBtn.offsetHeight - 20;
             
@@ -165,24 +176,20 @@
             noBtn.style.top = randomY + 'px';
         }
 
-        // Trigger for desktop
         noBtn.addEventListener('mouseover', moveButton);
-        // Trigger for mobile
         noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Stops the button from actually being clicked on mobile
+            e.preventDefault();
             moveButton();
         });
 
         // WhatsApp redirect logic
         function sendWhatsApp(vibe) {
-            // REPLACE THIS NUMBER WITH YOURS (Include country code, no + or spaces. e.g., 27821234567)
             const yourPhoneNumber = "13475383551"; 
             
             const message = `Hey baby! I'm officially saying YES to escaping the Joburg cold. 🥶\n\nThe vibe I'm choosing is: *${vibe}*\n\nCan't wait to see you!`;
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${yourPhoneNumber}?text=${encodedMessage}`;
             
-            // Open WhatsApp in a new tab/app
             window.location.href = whatsappUrl;
         }
     </script>

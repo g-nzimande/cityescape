@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>An Escape...</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fdf6e3;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            overflow: hidden; /* Prevents scrolling when the button runs away */
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .screen.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 400px;
+        }
+
+        .btn {
+            background-color: #d35400;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, background-color 0.2s;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #d35400;
+            border: 2px solid #d35400;
+        }
+
+        .btn-outline:hover {
+            background-color: #d35400;
+            color: white;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            position: relative;
+        }
+
+        /* Options for the final screen */
+        .vibe-option {
+            width: 100%;
+            max-width: 300px;
+            margin: 10px 0;
+            background-color: #fff;
+            color: #d35400;
+            border: 2px solid #d35400;
+        }
+
+        /* Warm gradient background for the final screen */
+        #screen3 {
+            background: linear-gradient(135deg, #fdf6e3 0%, #fae5d3 100%);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SCREEN 1: The Hook -->
+    <div class="screen active" id="screen1">
+        <h1>Hey...</h1>
+        <p>As you know the Joburg cold snap is about to hit us hard.</p>
+        <p>So, I was thinking...</p>
+        <button class="btn" onclick="nextScreen(1, 2)">What are you thinking?</button>
+    </div>
+
+    <!-- SCREEN 2: The Ask -->
+    <div class="screen" id="screen2">
+        <h1>An Escape.</h1>
+        <p>I'm planning a 1-day, 1-night getaway. Somewhere out of the city, but still in the city. Just a cozy space to escape the freeze or the flood.</p>
+        <p>Would you like to come with me?</p>
+        
+        <div class="button-container" id="btnContainer">
+            <button class="btn" onclick="nextScreen(2, 3)">Yes, absolutely!</button>
+            <button class="btn btn-outline" id="noBtn">No thanks</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: The Preferences / Interaction -->
+    <div class="screen" id="screen3">
+        <h1>Perfect! 🥂</h1>
+        <p>I'll handle the logistics. You just pick the vibe you're leaning toward so I can tailor it perfectly:</p>
+        
+        <button class="btn vibe-option" onclick="sendWhatsApp('Total Relaxation (Spa, cozy fireside, doing absolutely nothing)')">Total Relaxation 🔥</button>
+        <button class="btn vibe-option" onclick="sendWhatsApp('Great Food & Drinks (Cooking, wine, private dining)')">Food & Drinks 🍷</button>
+        <button class="btn vibe-option" onclick="sendWhatsApp('A little bit of both')">A little bit of both ✨</button>
+    </div>
+
+    <script>
+        // Screen transition logic
+        function nextScreen(currentId, nextId) {
+            const currentScreen = document.getElementById(`screen${currentId}`);
+            const nextScreen = document.getElementById(`screen${nextId}`);
+            
+            currentScreen.style.opacity = '0';
+            setTimeout(() => {
+                currentScreen.classList.remove('active');
+                nextScreen.classList.add('active');
+                // Trigger reflow for transition
+                void nextScreen.offsetWidth;
+                nextScreen.style.opacity = '1';
+            }, 800); // Matches the CSS transition time
+        }
+
+        // Runaway "No" Button Logic
+        const noBtn = document.getElementById('noBtn');
+        
+        function moveButton() {
+            // Calculate safe bounds so the button doesn't go off-screen
+            const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+            
+            const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // Trigger for desktop
+        noBtn.addEventListener('mouseover', moveButton);
+        // Trigger for mobile
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Stops the button from actually being clicked on mobile
+            moveButton();
+        });
+
+        // WhatsApp redirect logic
+        function sendWhatsApp(vibe) {
+            // REPLACE THIS NUMBER WITH YOURS (Include country code, no + or spaces. e.g., 27821234567)
+            const yourPhoneNumber = "278XXXXXXXX"; 
+            
+            const message = `Hey! I'm officially saying YES to escaping the Joburg cold. 🥶\n\nThe vibe I'm choosing is: *${vibe}*\n\nCan't wait!`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${yourPhoneNumber}?text=${encodedMessage}`;
+            
+            // Open WhatsApp in a new tab/app
+            window.location.href = whatsappUrl;
+        }
+    </script>
+</body>
+</html>

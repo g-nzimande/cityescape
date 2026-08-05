@@ -107,8 +107,8 @@
 
     <!-- SCREEN 1: The Hook -->
     <div class="screen active" id="screen1">
-        <h1>Hey...</h1>
-        <p>As you know the Joburg cold snap is about to hit us hard.</p>
+        <h1>Hey baby...</h1>
+        <p>As you know the Joburg cold snap is about to hit us hard. Or so I've been told by SA Weather Services</p>
         <p>So, I was thinking...</p>
         <button class="btn" onclick="nextScreen(1, 2)">What are you thinking?</button>
     </div>
@@ -117,7 +117,7 @@
     <div class="screen" id="screen2">
         <h1>An Escape.</h1>
         <p>I'm planning a 1-day, 1-night getaway. Somewhere out of the city, but still in the city. Just a cozy space to escape the freeze or the flood.</p>
-        <p>Would you like to come with me?</p>
+        <p>Would you like to come with me? (See what happens if you try and say no)</p>
         
         <div class="button-container" id="btnContainer">
             <button class="btn" onclick="nextScreen(2, 3)">Yes, absolutely!</button>
@@ -130,7 +130,7 @@
         <h1>Perfect! 🥂</h1>
         <p>I'll handle the logistics. You just pick the vibe you're leaning toward so I can tailor it perfectly:</p>
         
-        <button class="btn vibe-option" onclick="sendWhatsApp('Total Relaxation (Spa, cozy fireside, doing absolutely nothing)')">Total Relaxation 🔥</button>
+        <button class="btn vibe-option" onclick="sendWhatsApp('Total Relaxation (Cuddles, cozy fireside/heater, doing absolutely nothing but getting to know each other better)')">Total Relaxation 🔥</button>
         <button class="btn vibe-option" onclick="sendWhatsApp('Great Food & Drinks (Cooking, wine, private dining)')">Food & Drinks 🍷</button>
         <button class="btn vibe-option" onclick="sendWhatsApp('A little bit of both')">A little bit of both ✨</button>
     </div>
@@ -178,9 +178,9 @@
         // WhatsApp redirect logic
         function sendWhatsApp(vibe) {
             // REPLACE THIS NUMBER WITH YOURS (Include country code, no + or spaces. e.g., 27821234567)
-            const yourPhoneNumber = "278XXXXXXXX"; 
+            const yourPhoneNumber = "13475383551"; 
             
-            const message = `Hey! I'm officially saying YES to escaping the Joburg cold. 🥶\n\nThe vibe I'm choosing is: *${vibe}*\n\nCan't wait!`;
+            const message = `Hey baby! I'm officially saying YES to escaping the Joburg cold. 🥶\n\nThe vibe I'm choosing is: *${vibe}*\n\nCan't wait!`;
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${yourPhoneNumber}?text=${encodedMessage}`;
             

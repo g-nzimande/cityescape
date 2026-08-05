@@ -38,7 +38,7 @@
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Avenir', serif;
             font-size: 2.2rem;
             color: #2c3e50;
             margin-bottom: 15px;
@@ -107,7 +107,7 @@
 
     <!-- SCREEN 1: The Hook -->
     <div class="screen active" id="screen1">
-        <h1>Hey baby...</h1>
+        <h1>Hey baby ❤️</h1>
         <p>As you know the Joburg cold snap is about to hit us hard. Or so I've been told by SA Weather Services.</p>
         <p>So, I was thinking...</p>
         <button class="btn" onclick="nextScreen(1, 2)">What are you thinking?</button>
@@ -116,8 +116,8 @@
     <!-- SCREEN 2: The Ask -->
     <div class="screen" id="screen2">
         <h1>A brief escape.</h1>
-        <p>I'm planning a 1-day, 1-night getaway for Monday, 10 August. Somewhere out of the city, but still in the city. Just a cozy space to escape the freeze or the flood.</p>
-        <p>Would you like to come with me? I will be sending you the address and time to arrive, in the next couple of days. (You can see what happens if you try and say no hehe)</p>
+        <p>I'm planning a 1-day, 1-night getaway for Monday, 10 August. Somewhere out of the city, but still in the city. Just a cozy space to escape the temperature drop.</p>
+        <p>Would you like to come with me? (Duh) I will be sending you the address and time to arrive, in the next couple of days. (Doubt I can take no for answer, you can try though, if you're curious).</p>
         
         <div class="button-container" id="btnContainer">
             <button class="btn" onclick="nextScreen(2, 3)">Yes, absolutely!</button>
@@ -131,7 +131,7 @@
         <p>I'll handle the logistics. You just pick the vibe you're leaning toward so I can tailor it perfectly:</p>
         
         <button class="btn vibe-option" onclick="sendWhatsApp('Total Relaxation (Cuddles, cozy fireside/heater, doing absolutely nothing but getting to know each other better)')">Total Relaxation 🔥</button>
-        <button class="btn vibe-option" onclick="sendWhatsApp('Great Food & Drinks (Cooking, wine, private dining)')">Food & Drinks 🍷</button>
+        <button class="btn vibe-option" onclick="sendWhatsApp('Great Food & Drinks (Cooking together, wine, shots, music)')">Food & Drinks 🍷</button>
         <button class="btn vibe-option" onclick="sendWhatsApp('A little bit of both')">A little bit of both ✨</button>
     </div>
 
@@ -180,7 +180,7 @@
             // REPLACE THIS NUMBER WITH YOURS (Include country code, no + or spaces. e.g., 27821234567)
             const yourPhoneNumber = "13475383551"; 
             
-            const message = `Hey baby! I'm officially saying YES to escaping the Joburg cold. 🥶\n\nThe vibe I'm choosing is: *${vibe}*\n\nCan't wait!`;
+            const message = `Hey baby! I'm officially saying YES to escaping the Joburg cold. 🥶\n\nThe vibe I'm choosing is: *${vibe}*\n\nCan't wait to see you!`;
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${yourPhoneNumber}?text=${encodedMessage}`;
             

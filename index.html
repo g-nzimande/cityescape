@@ -5,18 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>An Escape...</title>
     <style>
-        /* Imported both Bitcount Prop Single and Poppins */
         @import url('https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Poppins:wght@300;400;600&display=swap');
 
+        /* Moving Gradient Background (Light Peach to Orange) */
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #fdf6e3;
             font-family: 'Poppins', sans-serif;
             color: #333;
-            overflow: hidden; /* Prevents whole-page scrolling when the runaway button moves */
+            overflow: hidden; /* Prevents whole-page scrolling during runaway button movements */
+            background: linear-gradient(135deg, #FFEFD5, #FFA500);
+            background-size: 400% 400%;
+            animation: moveGradient 8s ease infinite;
+        }
+
+        @keyframes moveGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .screen {
@@ -31,7 +39,7 @@
             text-align: center;
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
-            overflow-y: auto; /* Ensures long text remains fully viewable on small screens */
+            overflow-y: auto;
         }
 
         .screen.active {
@@ -39,7 +47,6 @@
             opacity: 1;
         }
 
-        /* Direct styling for headings using Bitcount Prop Single */
         h1 {
             font-family: "Bitcount Prop Single", system-ui, sans-serif;
             font-size: 2.2rem;
@@ -116,12 +123,17 @@
 </head>
 <body>
 
+    <!-- Hidden Audio element. Replace YOUR_AUDIO_FILE_LINK_HERE.mp3 with your song link -->
+    <audio id="dateMusic" preload="auto">
+        <source src="https://soundcloud.com/kehlanimusic/get-away-prod-by-jahaan-sweet" type="audio/mpeg">
+    </audio>
+
     <!-- SCREEN 1: The Hook -->
     <div class="screen active" id="screen1">
         <h1>Hey baby ❤️</h1>
         <p>As you know the Joburg cold snap ❄️🧊 is about to hit us hard. Or so I've been told by SA Weather Services.</p>
         <p>So, I was thinking...🤔</p>
-        <button class="btn" onclick="nextScreen(1, 2)">What are you thinking?</button>
+        <button class="btn" onclick="startDateMusic(); nextScreen(1, 2)">What are you thinking?</button>
     </div>
 
     <!-- SCREEN 2: The Ask -->
@@ -147,6 +159,16 @@
     </div>
 
     <script>
+        // Start audio playback on first interaction
+        function startDateMusic() {
+            const music = document.getElementById('dateMusic');
+            if (music && music.paused) {
+                music.play().catch(error => {
+                    console.error("Audio playback error:", error);
+                });
+            }
+        }
+
         // Screen transition logic
         function nextScreen(currentId, nextId) {
             const currentScreen = document.getElementById(`screen${currentId}`);
